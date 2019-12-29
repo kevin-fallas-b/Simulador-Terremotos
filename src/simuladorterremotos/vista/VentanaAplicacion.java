@@ -7,8 +7,6 @@ package simuladorterremotos.vista;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.Label;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
@@ -16,10 +14,7 @@ import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.scene.shape.Line;
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
 import simuladorterremotos.control.ControlSimulador;
 
 /**
@@ -29,7 +24,8 @@ import simuladorterremotos.control.ControlSimulador;
 public class VentanaAplicacion extends JFrame implements Observer {
 
     private final ControlSimulador gestor;
-    private BarraInferior barraEstado;
+    private BarraInferior barraInferior;
+    private PanelCentral panelCentral;
 
     public VentanaAplicacion(String titulo, ControlSimulador gestor) {
         super(titulo);
@@ -73,8 +69,8 @@ public class VentanaAplicacion extends JFrame implements Observer {
 
     private void ajustarComponentes(Container c) {
         c.setLayout(new BorderLayout());
-        //c.add(BorderLayout.CENTER,)
-        c.add(BorderLayout.PAGE_END, barraEstado = new BarraInferior());
+        c.add(BorderLayout.CENTER, panelCentral = new PanelCentral());
+        c.add(BorderLayout.PAGE_END, barraInferior = new BarraInferior());
     }
 
     public void init() {
@@ -89,30 +85,6 @@ public class VentanaAplicacion extends JFrame implements Observer {
     private void dibujarLineasMouse(Integer x, Integer y) {
         Line lineaVertical = new Line(x, 0, x + 10, 600);
         Line lineaHorizontal = new Line(0, y, 800, y + 10);
-        barraEstado.mostrarMensaje(x, y);
-    }
-}
-
-//clase que se encarga de controlar la barra de abajo, donde se muestran las cordenadas
-class BarraInferior extends JPanel {
-
-    private Label etiquetaMensaje = new Label();
-
-    public BarraInferior() {
-        super();
-        configurar();
-    }
-
-    private void configurar() {
-        setLayout(new FlowLayout(FlowLayout.LEFT));
-        setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-        add(etiquetaMensaje);
-        mostrarMensaje(0, 0);
-    }
-
-
-    public void mostrarMensaje(Integer x, Integer y) {
-        //aqui falta hacer la conversion de cordenadas x,y a cordenadas que pide el profe
-        etiquetaMensaje.setText("x:" + x + " y:" + y);
+        barraInferior.mostrarMensaje(x, y);
     }
 }
