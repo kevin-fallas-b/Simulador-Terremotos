@@ -14,7 +14,7 @@ import javax.swing.JScrollPane;
  * @author Kevin
  */
 public class PanelCentral extends JPanel {
-
+    private JPanel panel;
     public PanelCentral() {
         super();
         configurar();
@@ -22,7 +22,9 @@ public class PanelCentral extends JPanel {
 
     private void configurar() {
         setLayout(new GridLayout(1, 1));
-        this.add(new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+        add(new JScrollPane(panel = new JPanel(){
+            
+        }, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS
         ));
     }
