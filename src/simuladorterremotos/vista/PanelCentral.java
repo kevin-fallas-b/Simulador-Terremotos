@@ -6,21 +6,21 @@
 package simuladorterremotos.vista;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+import simuladorterremotos.control.ControlSimulador;
 
 /**
  *
@@ -31,9 +31,13 @@ public class PanelCentral extends JPanel {
     private JPanel panel;
     private JLabel fondo;
     private BufferedImage mapaCr;
+    private final ControlSimulador gestor;
+    private Integer x = 0;
+    private Integer y = 0;
 
-    public PanelCentral() {
+    public PanelCentral(ControlSimulador gestor) {
         super();
+        this.gestor = gestor;
         configurar();
     }
 
@@ -51,25 +55,32 @@ public class PanelCentral extends JPanel {
         }, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS
         ));
-        panel.addMouseMotionListener(new MouseMotionListener() {
+        fondo = new JLabel(new ImageIcon(mapaCr));
+        fondo.setLayout(null);
+        fondo.setBounds(0, 0, mapaCr.getWidth(), mapaCr.getHeight());
+        fondo.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
             }
 
             @Override
             public void mouseMoved(MouseEvent e) {
-                dibujarLineas(e.getX(), e.getY());
+                gestor.dibujarLineas(e);
             }
         });
-        fondo = new JLabel(new ImageIcon(mapaCr));
-        fondo.setLayout(null);
-        fondo.setBounds(0, 0, mapaCr.getWidth(), mapaCr.getHeight());
         panel.add(fondo);
-
     }
 
-    private void dibujarLineas(Integer x, Integer y) {
-
+    void dibujarLineas(MouseEvent e) {
+        MouseEvent nuevo = SwingUtilities.convertMouseEvent(fondo, e, this);
+        this.x = nuevo.getX();
+        this.y = nuevo.getY();
+        repaint();
     }
 
+    public void paint(Graphics g) {
+        super.paint(g); 
+        g.drawLine(x, 0, x, panel.getHeight());
+        g.drawLine(0, y, panel.getWidth(), y);
+    }
 }

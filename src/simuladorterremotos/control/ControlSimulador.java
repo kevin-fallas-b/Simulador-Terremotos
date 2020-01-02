@@ -5,6 +5,7 @@
  */
 package simuladorterremotos.control;
 
+import java.awt.event.MouseEvent;
 import java.util.Observer;
 import simuladorterremotos.modelo.ModeloSimulador;
 
@@ -29,6 +30,10 @@ public class ControlSimulador {
         if (modelo.countObservers() == 0) {
             System.exit(0);
         }
+    }
+    
+    public void dibujarLineas(MouseEvent e){
+      modelo.DibujarLineas(e);
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package simuladorterremotos.modelo;
 
+import java.awt.event.MouseEvent;
 import java.util.Observable;
 
 /**
@@ -12,5 +13,8 @@ import java.util.Observable;
  * @author Kevin
  */
 public class ModeloSimulador extends Observable{
-    
+    public void DibujarLineas(MouseEvent e){
+        setChanged();
+        notifyObservers(e);
+    }
 }
