@@ -1,0 +1,48 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package clases;
+
+import javax.xml.bind.annotation.XmlElement;
+
+/**
+ *
+ * @author lusiu
+ */
+public class PosicionImagen {
+    int x;
+    int y;
+
+    public PosicionImagen() {
+    }
+
+    public PosicionImagen(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+    
+    @XmlElement
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    @XmlElement
+    public void setY(int y) {
+        this.y = y;
+    }
+    
+    @Override
+    public String toString(){
+        return "Posx: "+x+",Posy: "+y;
+    }
+}
