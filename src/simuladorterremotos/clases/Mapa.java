@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clases;
+package simuladorterremotos.clases;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,6 +28,16 @@ public class Mapa {
     public String toString(){
         return "Imagen: "+image.toString()+"\nCoordenadas:\n"+coordinates.toString();
     }
-    
+    /*
+    try {
+            JAXBContext ctx = JAXBContext.newInstance(Mapa.class);
+            Unmarshaller mrs = ctx.createUnmarshaller();
+            Mapa mapa = (Mapa) mrs.unmarshal(new File("../map.xml"));
+            System.out.println(mapa);
+
+        } catch (JAXBException ex) {
+            System.err.printf("Excepción: '%s'%n", ex.getMessage());
+        }
+    */
     
 }
