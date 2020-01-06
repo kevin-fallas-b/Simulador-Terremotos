@@ -7,7 +7,9 @@ package simuladorterremotos.control;
 
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.List;
 import java.util.Observer;
+import simuladorterremotos.clases.Sismo;
 import simuladorterremotos.modelo.ModeloSimulador;
 
 /**
@@ -50,4 +52,8 @@ public class ControlSimulador {
         return modelo.getNombreArchivoDatos();
     }
 
+    public List<Sismo> getSismos(){
+        return modelo.getSismos();
+    }
+    
 }

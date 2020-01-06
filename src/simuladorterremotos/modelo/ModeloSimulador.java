@@ -40,8 +40,14 @@ public class ModeloSimulador extends Observable{
     public ModeloSimulador() {
         sismos = new ArrayList();
     }
-    
-    
+
+    public List<Sismo> getSismos() {
+        return sismos;
+    }
+
+    public void setSismos(List<Sismo> sismos) {
+        this.sismos = sismos;
+    }
     
     public void DibujarLineas(MouseEvent e){
         setChanged();

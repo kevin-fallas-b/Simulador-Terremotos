@@ -137,5 +137,6 @@ public class VentanaAplicacion extends JFrame implements Observer {
     }
 
     private void abrirVentanaTabla() {
+        VentanaTabla vtabla = new VentanaTabla(gestor);
     }
 }
