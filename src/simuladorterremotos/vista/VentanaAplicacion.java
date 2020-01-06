@@ -48,11 +48,12 @@ public class VentanaAplicacion extends JFrame implements Observer {
         super(titulo);
         this.gestor = gestor;
         configurar();
+        setSize(900, 700);
     }
 
     private void configurar() {
         setResizable(true);
-        setSize(900, 700);
+        setSize(900, 699);
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(400, 400));
         setLocationRelativeTo(null);
@@ -134,6 +135,7 @@ public class VentanaAplicacion extends JFrame implements Observer {
     }
 
     private void abrirVentanaLimites() {
+        new VentanaParametros(gestor).init();
     }
 
     private void abrirVentanaTabla() {
