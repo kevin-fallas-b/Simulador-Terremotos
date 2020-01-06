@@ -75,11 +75,9 @@ public class ModeloSimulador extends Observable{
             String x = "";
             Sismo sismo;
             int aux = 0;
-            boolean a;
             
             while(!eof(b)){
                 sismo = new Sismo();
-                a = true;
                 
                 while((y=(char) b.read())!='\t'){
                     x = x+y;
