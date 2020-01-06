@@ -18,8 +18,12 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -60,6 +64,11 @@ public class VentanaDatos extends JFrame implements Observer {
 
         });
         ajustarComponents(getContentPane());
+         try {
+            setIconImage(ImageIO.read(VentanaAplicacion.class.getResourceAsStream("../resource/icon.png")));
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
      private void ajustarComponents(Container c) {

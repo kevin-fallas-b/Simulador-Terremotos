@@ -8,12 +8,18 @@ package simuladorterremotos.vista;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -35,6 +41,7 @@ public class VentanaAplicacion extends JFrame implements Observer {
     private JMenu menuArchivo;
     private JMenuItem itemCambiarArchivo;
     private JMenuItem itemLimitarVisualizacion;
+    private JMenuItem itemVisualizarEnTabla;
     private JMenuItem itemSalir;
 
     public VentanaAplicacion(String titulo, ControlSimulador gestor) {
@@ -61,6 +68,11 @@ public class VentanaAplicacion extends JFrame implements Observer {
         });
         ajustarComponentes(this);
         ajustarMenu();
+        try {
+            setIconImage(ImageIO.read(VentanaAplicacion.class.getResourceAsStream("../resource/icon.png")));
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -85,6 +97,7 @@ public class VentanaAplicacion extends JFrame implements Observer {
 
         menuArchivo.add(itemSalir = new JMenuItem("Salir"));
         menuVentana.add(itemLimitarVisualizacion = new JMenuItem("Ajustar Parametros"));
+        menuVentana.add(itemVisualizarEnTabla = new JMenuItem("Visualizar en tabla"));
         menuDatos.add(itemCambiarArchivo = new JMenuItem("Cambiar Archivo de datos"));
 
         itemSalir.addActionListener((ActionEvent e) -> {
@@ -93,6 +106,12 @@ public class VentanaAplicacion extends JFrame implements Observer {
 
         itemCambiarArchivo.addActionListener((e) -> {
             abrirVentanaDatos();
+        });
+        itemLimitarVisualizacion.addActionListener((e) -> {
+            abrirVentanaLimites();
+        });
+        itemVisualizarEnTabla.addActionListener((e) -> {
+            abrirVentanaTabla();
         });
         setJMenuBar(menuPrincipal);
     }
@@ -112,5 +131,11 @@ public class VentanaAplicacion extends JFrame implements Observer {
 
     private void abrirVentanaDatos() {
         new VentanaDatos(gestor).init();
+    }
+
+    private void abrirVentanaLimites() {
+    }
+
+    private void abrirVentanaTabla() {
     }
 }
