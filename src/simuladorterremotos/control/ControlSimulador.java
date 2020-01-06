@@ -56,4 +56,7 @@ public class ControlSimulador {
         return modelo.getSismos();
     }
     
+    public void LeerTxt(){
+        modelo.LeerTxt();
+    }
 }

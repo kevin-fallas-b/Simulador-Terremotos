@@ -55,10 +55,15 @@ public class VentanaTabla extends JFrame{
         };
         
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
-        
-        
+        gestor.LeerTxt();
         List<Sismo> sismos = gestor.getSismos();
+        
+        sismos.forEach(x->{
+            System.out.println(x.toString());
+        });
+        
         for(int i = 0;i < sismos.size();i++){
+            
             int id = sismos.get(i).getId();
             int sc = sismos.get(i).getSc();
             LocalDate fecha = sismos.get(i).getFecha();
@@ -66,7 +71,9 @@ public class VentanaTabla extends JFrame{
             double longitud = sismos.get(i).getLongitud();
             double magnitud = sismos.get(i).getMagnitud();
             double profundidad = sismos.get(i).getProfundidad();
+            
             Object[] data = {id,sc,fecha,latitud,longitud,magnitud,profundidad};
+            
             tableModel.addRow(data);
         }
 
