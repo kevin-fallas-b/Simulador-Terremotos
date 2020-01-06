@@ -5,7 +5,6 @@
  */
 package simuladorterremotos.vista;
 
-
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -54,21 +53,20 @@ public class VentanaDatos extends JFrame implements Observer {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                gestor.suprimir(VentanaDatos.this);
-                dispose();
+                cerrar();
             }
 
         });
         ajustarComponents(getContentPane());
-         try {
+        try {
             setIconImage(ImageIO.read(VentanaAplicacion.class.getResourceAsStream("../resource/icon.png")));
         } catch (IOException ex) {
             Logger.getLogger(VentanaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     private void ajustarComponents(Container c) {
-         c.setLayout(new GridBagLayout());
+
+    private void ajustarComponents(Container c) {
+        c.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.insets = new Insets(8, 8, 8, 8);
@@ -85,39 +83,42 @@ public class VentanaDatos extends JFrame implements Observer {
 
         c.add(campoArchivoSeleccionado = new JTextField(), gbc);
         campoArchivoSeleccionado.setEditable(false);
-        
+
         gbc.gridx = 2;
         gbc.weightx = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         c.add(btnSeleccionarArchivo = new JButton("Seleccionar Archivo"), gbc);
 
-       
         c.add(new JPanel(), gbc);
-
-       
 
         btnSeleccionarArchivo.addActionListener((ActionEvent e) -> {
             escogerArchivo();
         });
 
     }
-    
-    public void init(){
-         gestor.registrar(this);
-         setVisible(true);
-         campoArchivoSeleccionado.setText(gestor.solicitarNombreArchivoDatos());
+
+    public void init() {
+        gestor.registrar(this);
+        setVisible(true);
+        campoArchivoSeleccionado.setText(gestor.solicitarNombreArchivoDatos());
     }
-    
-    private void escogerArchivo(){
-         JFileChooser fc = new JFileChooser();
-         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto (.txt)", "txt");
-         fc.setAcceptAllFileFilterUsed(false);
-         fc.setFileFilter(filter);
-         if(fc.showOpenDialog(fc) == JFileChooser.APPROVE_OPTION){
-             gestor.cambiarArchivoDeDatos(fc.getSelectedFile());
-             campoArchivoSeleccionado.setText(fc.getSelectedFile().getName());
-         }
+
+    private void escogerArchivo() {
+        JFileChooser fc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto (.txt)", "txt");
+        fc.setAcceptAllFileFilterUsed(false);
+        fc.setFileFilter(filter);
+        if (fc.showOpenDialog(fc) == JFileChooser.APPROVE_OPTION) {
+            gestor.cambiarArchivoDeDatos(fc.getSelectedFile());
+            campoArchivoSeleccionado.setText(fc.getSelectedFile().getName());
+            cerrar();
+        }
+    }
+
+    private void cerrar() {
+        gestor.suprimir(VentanaDatos.this);
+        dispose();
     }
 
     @Override
