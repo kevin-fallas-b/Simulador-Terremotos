@@ -45,7 +45,8 @@ public class VentanaAplicacion extends JFrame implements Observer {
 
     private void configurar() {
         setResizable(true);
-        setSize(850, 650);
+        setSize(900, 700);
+        setLocationRelativeTo(null);
         setMinimumSize(new Dimension(400, 400));
         setLocationRelativeTo(null);
         setVisible(true);
@@ -84,12 +85,15 @@ public class VentanaAplicacion extends JFrame implements Observer {
 
         menuArchivo.add(itemSalir = new JMenuItem("Salir"));
         menuVentana.add(itemLimitarVisualizacion = new JMenuItem("Ajustar Parametros"));
-        menuDatos.add(itemCambiarArchivo = new JMenuItem("Cambiar Archivo"));
+        menuDatos.add(itemCambiarArchivo = new JMenuItem("Cambiar Archivo de datos"));
 
         itemSalir.addActionListener((ActionEvent e) -> {
             cerrarVentana();
         });
 
+        itemCambiarArchivo.addActionListener((e) -> {
+            abrirVentanaDatos();
+        });
         setJMenuBar(menuPrincipal);
     }
 
@@ -98,12 +102,15 @@ public class VentanaAplicacion extends JFrame implements Observer {
     }
 
     private void cerrarVentana() {
-        gestor.suprimir(this);
-        dispose();
+        gestor.cerrarAplicacion();
     }
 
     private void dibujarLineasMouse(MouseEvent e) {
         barraInferior.mostrarMensaje(e.getX(), e.getY());
         panelCentral.dibujarLineas(e);
+    }
+
+    private void abrirVentanaDatos() {
+        new VentanaDatos(gestor).init();
     }
 }

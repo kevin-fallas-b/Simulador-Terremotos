@@ -6,6 +6,7 @@
 package simuladorterremotos.control;
 
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.Observer;
 import simuladorterremotos.modelo.ModeloSimulador;
 
@@ -34,6 +35,19 @@ public class ControlSimulador {
     
     public void dibujarLineas(MouseEvent e){
       modelo.DibujarLineas(e);
+    }
+
+    public void cerrarAplicacion() {
+       modelo.deleteObservers();
+       System.exit(0);
+    }
+
+    public void cambiarArchivoDeDatos(File selectedFile) {
+        modelo.setArchivoDatos(selectedFile);
+    }
+
+    public String solicitarNombreArchivoDatos() {
+        return modelo.getNombreArchivoDatos();
     }
 
 }
