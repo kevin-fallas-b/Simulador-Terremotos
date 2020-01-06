@@ -5,9 +5,16 @@
  */
 package simuladorterremotos.vista;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.Stroke;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
@@ -45,6 +52,7 @@ public class PanelCentral extends JPanel {
         try {
             mapaCr = ImageIO.read(PanelCentral.class.getResourceAsStream("../resource/MapaCR.png"));
             setPreferredSize(new Dimension(mapaCr.getWidth(), mapaCr.getHeight()));
+
         } catch (IOException ex) {
             Logger.getLogger(PanelCentral.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -68,6 +76,7 @@ public class PanelCentral extends JPanel {
                 gestor.dibujarLineas(e);
             }
         });
+        fondo.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
         panel.add(fondo);
     }
 
@@ -79,8 +88,12 @@ public class PanelCentral extends JPanel {
     }
 
     public void paint(Graphics g) {
-        super.paint(g); 
-        g.drawLine(x, 0, x, panel.getHeight());
-        g.drawLine(0, y, panel.getWidth(), y);
+        super.paint(g);
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setColor(Color.MAGENTA);
+        Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+        g2d.setStroke(dashed);        
+        g2d.drawLine(x, fondo.getLocation().y, x, fondo.getLocation().y+fondo.getHeight());
+        g2d.drawLine(fondo.getLocation().x, y, fondo.getLocation().x+ fondo.getWidth(), y);
     }
 }
