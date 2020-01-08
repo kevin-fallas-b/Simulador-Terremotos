@@ -36,7 +36,13 @@ public class ModeloSimulador extends Observable{
     private File archivoDatos;
     
     private List<Sismo> sismos;
-
+    private List<Sismo> sismosFiltrados;
+    
+    private LocalDate fechaInicio;
+    private LocalDate fechaFinal;
+    private double magnitudInicio;
+    private double magnitudFinal;
+    
     public ModeloSimulador() {
         sismos = new ArrayList();
     }
