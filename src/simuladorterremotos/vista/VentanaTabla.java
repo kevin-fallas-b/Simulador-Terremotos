@@ -5,6 +5,7 @@
  */
 package simuladorterremotos.vista;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.ScrollPane;
@@ -58,10 +59,6 @@ public class VentanaTabla extends JFrame{
         gestor.LeerTxt();
         List<Sismo> sismos = gestor.getSismos();
         
-        sismos.forEach(x->{
-            System.out.println(x.toString());
-        });
-        
         for(int i = 0;i < sismos.size();i++){
             
             int id = sismos.get(i).getId();
@@ -80,6 +77,8 @@ public class VentanaTabla extends JFrame{
         JTable table = new JTable(tableModel);
         
         
+        table.setBackground(Color.DARK_GRAY);
+        table.setForeground(Color.WHITE);
         
         JScrollPane scroll = new JScrollPane(table);
         table.setSize(200,200);
