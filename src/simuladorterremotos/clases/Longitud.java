@@ -61,6 +61,6 @@ public class Longitud {
     
     @Override
     public String toString(){
-        return "Grados: "+grados+"\n\tMinutos:"+minutos+"\n\tSegundos: "+segundos+"\n\tDireccion: "+direccion;
+        return " ("+grados+"°\t "+minutos+"'\t "+segundos+"''\t"+direccion+" )";
     }
 }

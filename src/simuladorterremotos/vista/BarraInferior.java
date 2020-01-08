@@ -10,6 +10,7 @@ import java.awt.Label;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
+import simuladorterremotos.util.ConversorGrados;
 
 /**
  *
@@ -33,6 +34,7 @@ public class BarraInferior extends JPanel {
 
     public void mostrarMensaje(Integer x, Integer y) {
         //aqui falta hacer la conversion de cordenadas x,y a cordenadas que pide el profe
-        etiquetaMensaje.setText("x:" + x + " y:" + y);
+
+        etiquetaMensaje.setText(ConversorGrados.convertirLatitud_Sexagecimal(ConversorGrados.convertirPixeles_GeograficasLatitud(y)) + ConversorGrados.convertirLongitud_Sexagecimal(ConversorGrados.convertirPixeles_GeograficasLongitud(x)).toString());
     }
 }

@@ -78,6 +78,7 @@ public class PanelCentral extends JPanel {
         });
         fondo.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
         panel.add(fondo);
+        panel.setBackground(new Color(200,235,255));
     }
 
     void dibujarLineas(MouseEvent e) {
@@ -93,7 +94,7 @@ public class PanelCentral extends JPanel {
         g2d.setColor(Color.MAGENTA);
         Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
         g2d.setStroke(dashed);        
-        g2d.drawLine(x, fondo.getLocation().y, x, fondo.getLocation().y+fondo.getHeight());
-        g2d.drawLine(fondo.getLocation().x, y, fondo.getLocation().x+ fondo.getWidth(), y);
+        g2d.drawLine(x, 0, x, panel.getHeight());
+        g2d.drawLine(0, y, panel.getWidth(), y);
     }
 }
