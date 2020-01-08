@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<base-map xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="./map.xsd">
+    <image>
+        <url>images/MapaCR.png</url>
+        <dimension>
+            <width>853</width>
+            <height>667</height>
+        </dimension>
+    </image>
+    <coordinates>
+        <coordinate label="top-left">
+            <image-position>
+                <x>86</x>
+                <y>67</y>
+            </image-position>
+            <map-position>
+                <longitude>
+                    <longitude-degrees>86</longitude-degrees>
+                    <minutes>0</minutes>
+                    <seconds>0</seconds>
+                    <longitude-direction>W</longitude-direction>
+                </longitude>
+                <latitude>
+                    <latitude-degrees>11</latitude-degrees>
+                    <minutes>0</minutes>
+                    <seconds>0</seconds>
+                    <latitude-direction>N</latitude-direction>
+                </latitude>
+            </map-position>
+        </coordinate>
+        <coordinate label="bottom-right">
+            <image-position>
+                <x>663</x>
+                <y>636</y>
+            </image-position>
+            <map-position>
+                <longitude>
+                    <longitude-degrees>83</longitude-degrees>
+                    <minutes>0</minutes>
+                    <seconds>0</seconds>
+                    <longitude-direction>W</longitude-direction>
+                </longitude>
+                <latitude>
+                    <latitude-degrees>8</latitude-degrees>
+                    <minutes>0</minutes>
+                    <seconds>0</seconds>
+                    <latitude-direction>N</latitude-direction>
+                </latitude>
+            </map-position>
+        </coordinate>
+    </coordinates>
+</base-map>

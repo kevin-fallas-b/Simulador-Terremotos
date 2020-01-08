@@ -12,9 +12,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.Point;
 import java.awt.Stroke;
-import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
@@ -27,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
+import simuladorterremotos.clases.Imagen;
 import simuladorterremotos.control.ControlSimulador;
 
 /**
@@ -50,7 +49,7 @@ public class PanelCentral extends JPanel {
 
     private void configurar() {
         try {
-            mapaCr = ImageIO.read(PanelCentral.class.getResourceAsStream("../resource/MapaCR.png"));
+            mapaCr = ImageIO.read(PanelCentral.class.getResourceAsStream("../resource/images/MapaCR.png"));
             setPreferredSize(new Dimension(mapaCr.getWidth(), mapaCr.getHeight()));
 
         } catch (IOException ex) {

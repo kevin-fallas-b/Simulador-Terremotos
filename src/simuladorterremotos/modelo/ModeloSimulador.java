@@ -11,20 +11,11 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParseException;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import simuladorterremotos.clases.Sismo;
 
 /**
