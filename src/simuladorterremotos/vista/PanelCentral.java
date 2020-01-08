@@ -16,6 +16,7 @@ import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,8 +26,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
-import simuladorterremotos.clases.Imagen;
 import simuladorterremotos.control.ControlSimulador;
+import simuladorterremotos.util.XmlUtil;
 
 /**
  *
@@ -40,6 +41,7 @@ public class PanelCentral extends JPanel {
     private final ControlSimulador gestor;
     private Integer x = 0;
     private Integer y = 0;
+    private JScrollPane scrollpane;
 
     public PanelCentral(ControlSimulador gestor) {
         super();
@@ -49,7 +51,7 @@ public class PanelCentral extends JPanel {
 
     private void configurar() {
         try {
-            mapaCr = ImageIO.read(PanelCentral.class.getResourceAsStream("../resource/images/MapaCR.png"));
+            mapaCr = ImageIO.read(new File(XmlUtil.getInstance().getMapa().getImage().getAbsolutePath()));
             setPreferredSize(new Dimension(mapaCr.getWidth(), mapaCr.getHeight()));
 
         } catch (IOException ex) {
@@ -57,7 +59,7 @@ public class PanelCentral extends JPanel {
         }
 
         setLayout(new GridLayout(1, 1));
-        add(new JScrollPane(panel = new JPanel() {
+        add(scrollpane = new JScrollPane(panel = new JPanel() {
 
         }, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS
@@ -77,7 +79,7 @@ public class PanelCentral extends JPanel {
         });
         fondo.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
         panel.add(fondo);
-        panel.setBackground(new Color(200,235,255));
+        panel.setBackground(new Color(200, 235, 255));
     }
 
     void dibujarLineas(MouseEvent e) {
@@ -90,10 +92,19 @@ public class PanelCentral extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
+
+        //dibujar Guias
+        g2d.drawLine(fondo.getX() + XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(0).getPosImagen().getX() + panel.getX(), 0, fondo.getX() + XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(0).getPosImagen().getX() + panel.getX(), mapaCr.getHeight()); // guia vertical izquierda
+        g2d.drawLine(fondo.getX(), XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(0).getPosImagen().getY() + panel.getY(), fondo.getX() + fondo.getWidth(), XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(0).getPosImagen().getY() + panel.getY()); // guia Horizontal arriba
+
+        g2d.drawLine(fondo.getX() + XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(1).getPosImagen().getX() + panel.getX(), 0, fondo.getX() + XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(1).getPosImagen().getX() + panel.getX(), mapaCr.getHeight()); // guia vertical derecha
+        g2d.drawLine(fondo.getX(), XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(1).getPosImagen().getY() + panel.getY(), fondo.getX() + fondo.getWidth(), XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(1).getPosImagen().getY() + panel.getY()); // guia horizontal abajo
+        //dibujar lineas que siguen al mouse
         g2d.setColor(Color.MAGENTA);
         Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
-        g2d.setStroke(dashed);        
-        g2d.drawLine(x, 0, x, panel.getHeight());
-        g2d.drawLine(0, y, panel.getWidth(), y);
+        g2d.setStroke(dashed);
+        g2d.drawLine(x, 0, x, panel.getHeight());//linea vertical
+        g2d.drawLine(0, y, panel.getWidth(), y);//linea horizontal
     }
+
 }

@@ -16,28 +16,33 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Mapa {
     
     @XmlElement
-    private ListaCoordenadas coordinates;
+    private ListaCoordenadas coordenadas;
     @XmlElement
-    private Imagen image;
+    private Imagen imagen;
 
     public Mapa() {
-        image = new Imagen();
-        coordinates = new ListaCoordenadas();
+        imagen = new Imagen();
+        coordenadas = new ListaCoordenadas();
     }
     
     public String toString(){
-        return "Imagen: "+image.toString()+"\nCoordenadas:\n"+coordinates.toString();
+        return "Imagen: "+imagen.toString()+"\nCoordenadas:\n"+coordenadas.toString();
     }
-    /*
-    try {
-            JAXBContext ctx = JAXBContext.newInstance(Mapa.class);
-            Unmarshaller mrs = ctx.createUnmarshaller();
-            Mapa mapa = (Mapa) mrs.unmarshal(new File("../map.xml"));
-            System.out.println(mapa);
 
-        } catch (JAXBException ex) {
-            System.err.printf("Excepción: '%s'%n", ex.getMessage());
-        }
-    */
-    
+    public ListaCoordenadas getCoordinates() {
+        return coordenadas;
+    }
+
+    public void setCoordinates(ListaCoordenadas coordinates) {
+        this.coordenadas = coordinates;
+    }
+
+    public Imagen getImage() {
+        return imagen;
+    }
+
+    public void setImage(Imagen image) {
+        this.imagen = image;
+    }
+   
 }

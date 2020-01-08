@@ -7,6 +7,7 @@ package simuladorterremotos.clases;
 
 import java.net.URI;
 import javax.xml.bind.annotation.XmlElement;
+import simuladorterremotos.util.PathUtils;
 
 /**
  *
@@ -16,6 +17,7 @@ public class Imagen {
     
     Dimension dimension;
     URI url;
+    private String absolutePath;
 
     public Imagen() {
     }
@@ -39,9 +41,15 @@ public class Imagen {
     @XmlElement
     public void setUrl(URI url) {
         this.url = url;
+        this.absolutePath = PathUtils.getWorkingDirectory()+"/src/simuladorterremotos/resource/"+url.toString();
     }
     
     public String toString(){
         return "URL: "+url+"\nImagen:\n"+dimension.toString();
     }
+
+    public String getAbsolutePath() {
+        return absolutePath;
+    }
+    
 }

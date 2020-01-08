@@ -34,4 +34,8 @@ public class ListaCoordenadas {
         return r.toString();
     }
     
+    public List<Coordenada> getCoordenadas(){
+        return coordenadas;
+    }
+    
 }
