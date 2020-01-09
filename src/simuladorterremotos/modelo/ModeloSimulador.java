@@ -219,46 +219,46 @@ public class ModeloSimulador extends Observable {
 
     public void dibujarSismos() {
         setSismosFiltrados();
-
     }
 
     public void setSismosFiltrados() {
         //para no complicarme primero filtro por magnitud, luego por fechas
+        sismosFiltrados = new ArrayList<>();
         List<Sismo> filtradoMagnitud = new ArrayList<>();
         for (int i = 0; i < sismos.size(); i++) {
-            if(magnitudFinal!=-1){
-                if(sismos.get(i).getMagnitud() > magnitudInicio && sismos.get(i).getMagnitud()<magnitudFinal){
+            if (magnitudFinal != -1) {
+                if (sismos.get(i).getMagnitud() > magnitudInicio && sismos.get(i).getMagnitud() < magnitudFinal) {
                     filtradoMagnitud.add(sismos.get(i));
                 }
-            }else{
+            } else {
                 //el usuario no agrego magnitud maxima
-                if(sismos.get(i).getMagnitud()>magnitudInicio){
+                if (sismos.get(i).getMagnitud() > magnitudInicio) {
                     filtradoMagnitud.add(sismos.get(i));
                 }
             }
         }
-        
+
         //ahora si, filtrar por fechas
-        for(int i=0;i<filtradoMagnitud.size();i++){
-            if(fechaInicio!=null){
-                if(fechaFinal!=null){
+        for (int i = 0; i < filtradoMagnitud.size(); i++) {
+            if (fechaInicio != null) {
+                if (fechaFinal != null) {
                     //existen ambas fechas como filtro
-                    if(filtradoMagnitud.get(i).getFecha().isBefore(fechaFinal)&&filtradoMagnitud.get(i).getFecha().isAfter(fechaInicio)){
+                    if (filtradoMagnitud.get(i).getFecha().isBefore(fechaFinal) && filtradoMagnitud.get(i).getFecha().isAfter(fechaInicio)) {
                         sismosFiltrados.add(filtradoMagnitud.get(i));
                     }
-                }else{
+                } else {
                     //solo existe fecha de inicio como filtro, mas no fecha final
-                    if(filtradoMagnitud.get(i).getFecha().isAfter(fechaInicio)){
+                    if (filtradoMagnitud.get(i).getFecha().isAfter(fechaInicio)) {
                         sismosFiltrados.add(filtradoMagnitud.get(i));
                     }
                 }
-            }else{
+            } else {
                 //no existe fecha de inicio, revisar si existe fecha final, si no existe, agregar todo
-                if(fechaFinal!=null){
-                    if(filtradoMagnitud.get(i).getFecha().isBefore(fechaFinal)){
+                if (fechaFinal != null) {
+                    if (filtradoMagnitud.get(i).getFecha().isBefore(fechaFinal)) {
                         sismosFiltrados.add(filtradoMagnitud.get(i));
                     }
-                }else{
+                } else {
                     sismosFiltrados = filtradoMagnitud;
                     break;
                 }
