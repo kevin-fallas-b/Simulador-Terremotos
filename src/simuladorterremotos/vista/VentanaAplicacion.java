@@ -146,7 +146,8 @@ public class VentanaAplicacion extends JFrame implements Observer {
     }
 
     private void abrirVentanaLimites() {
-        new VentanaParametros(gestor).init();
+        VentanaParametros ventana = new VentanaParametros();
+        ventana.setGestor(gestor);
     }
 
     private void abrirVentanaTabla() {
