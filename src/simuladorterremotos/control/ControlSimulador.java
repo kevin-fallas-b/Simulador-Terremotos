@@ -7,6 +7,7 @@ package simuladorterremotos.control;
 
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Observer;
 import simuladorterremotos.clases.Sismo;
@@ -56,6 +57,10 @@ public class ControlSimulador {
         return modelo.getSismos();
     }
     
+    public void FiltrarSismos(){
+        modelo.setSismosFiltrados();
+    }
+    
     public void LeerTxt(){
         modelo.LeerTxt();
     }
@@ -65,5 +70,21 @@ public class ControlSimulador {
     }
 
     public void borrarSismos() {
+    }
+    
+    public void setFechaInicio(LocalDate fecha){
+        modelo.setFechaInicio(fecha);
+    }
+    
+    public void setFechaFinal(LocalDate fecha){
+        modelo.setFechaFinal(fecha);
+    }
+    
+    public void setMagnitudInicio(double magnitud){
+        modelo.setMagnitudInicio(magnitud);
+    }
+    
+    public void setMagnitudFinal(double magnitud){
+        modelo.setMagnitudFinal(magnitud);
     }
 }

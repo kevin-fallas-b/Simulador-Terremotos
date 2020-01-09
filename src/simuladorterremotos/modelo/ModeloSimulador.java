@@ -46,7 +46,7 @@ public class ModeloSimulador extends Observable {
     public void setSismos(List<Sismo> sismos) {
         this.sismos = sismos;
     }
-
+    
     public void DibujarLineas(MouseEvent e) {
         setChanged();
         notifyObservers(e);
@@ -63,6 +63,42 @@ public class ModeloSimulador extends Observable {
         } else {
             return "";
         }
+    }
+
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(LocalDate fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public LocalDate getFechaFinal() {
+        return fechaFinal;
+    }
+
+    public void setFechaFinal(LocalDate fechaFinal) {
+        this.fechaFinal = fechaFinal;
+    }
+
+    public double getMagnitudInicio() {
+        return magnitudInicio;
+    }
+
+    public void setMagnitudInicio(double magnitudInicio) {
+        this.magnitudInicio = magnitudInicio;
+    }
+
+    public double getMagnitudFinal() {
+        return magnitudFinal;
+    }
+
+    public void setMagnitudFinal(double magnitudFinal) {
+        this.magnitudFinal = magnitudFinal;
+    }
+
+    public List<Sismo> getSismosFiltrados() {
+        return sismosFiltrados;
     }
 
     public void LeerTxt() {
@@ -186,12 +222,12 @@ public class ModeloSimulador extends Observable {
     public void setSismosFiltrados() {
         sismosFiltrados = sismos;
         System.out.println("se setiaron sismos filtrados" +sismos.size() + "filtrados "+sismosFiltrados.size());
-//        for (int i = 0; i < sismos.size(); i++) {
-//            if (fechaInicio != null && fechaFinal != null) {
-//                if (sismos.get(i).getFecha().isBefore(fechaFinal) && sismos.get(i).getFecha().isAfter(fechaInicio) && sismos.get(i).getMagnitud() > magnitudInicio && sismos.get(i).getMagnitud() < magnitudFinal) {
-//                    sismosFiltrados.add(sismos.get(i));
-//                }
-//            }
-//        }
+        for (int i = 0; i < sismos.size(); i++) {
+            if (fechaInicio != null && fechaFinal != null) {
+                if (sismos.get(i).getFecha().isBefore(fechaFinal) && sismos.get(i).getFecha().isAfter(fechaInicio) && sismos.get(i).getMagnitud() > magnitudInicio && sismos.get(i).getMagnitud() < magnitudFinal) {
+                    sismosFiltrados.add(sismos.get(i));
+                }
+            }
+        }
     }
 }
