@@ -59,4 +59,11 @@ public class ControlSimulador {
     public void LeerTxt(){
         modelo.LeerTxt();
     }
+
+    public void dibujarSismos() {
+        modelo.dibujarSismos();
+    }
+
+    public void borrarSismos() {
+    }
 }

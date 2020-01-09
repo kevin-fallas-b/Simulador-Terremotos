@@ -13,15 +13,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import simuladorterremotos.clases.Sismo;
 import simuladorterremotos.control.ControlSimulador;
 
 /**
@@ -41,6 +44,7 @@ public class VentanaAplicacion extends JFrame implements Observer {
     private JMenuItem itemLimitarVisualizacion;
     private JMenuItem itemVisualizarEnTabla;
     private JMenuItem itemSalir;
+    private JCheckBoxMenuItem itemVisualizar;
 
     public VentanaAplicacion(String titulo, ControlSimulador gestor) {
         super(titulo);
@@ -76,10 +80,14 @@ public class VentanaAplicacion extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if(arg instanceof MouseEvent){
+        if (arg instanceof MouseEvent) {
             dibujarLineasMouse(((MouseEvent) arg));
         }
-        
+        if (arg instanceof List) {
+            System.out.println("instancia de lista encontrada");
+            dibujarSismos((List<Sismo>) arg);
+        }
+
     }
 
     private void ajustarComponentes(Container c) {
@@ -97,6 +105,8 @@ public class VentanaAplicacion extends JFrame implements Observer {
         menuArchivo.add(itemSalir = new JMenuItem("Salir"));
         menuVentana.add(itemLimitarVisualizacion = new JMenuItem("Ajustar Parametros"));
         menuVentana.add(itemVisualizarEnTabla = new JMenuItem("Visualizar en tabla"));
+        menuVentana.add(itemVisualizar = new JCheckBoxMenuItem("Visualizar sismos"));
+        itemVisualizar.setSelected(false);
         menuDatos.add(itemCambiarArchivo = new JMenuItem("Cambiar Archivo de datos"));
 
         itemSalir.addActionListener((ActionEvent e) -> {
@@ -111,6 +121,9 @@ public class VentanaAplicacion extends JFrame implements Observer {
         });
         itemVisualizarEnTabla.addActionListener((e) -> {
             abrirVentanaTabla();
+        });
+        itemVisualizar.addActionListener((e) -> {
+            visualizarSismos();
         });
         setJMenuBar(menuPrincipal);
     }
@@ -138,5 +151,17 @@ public class VentanaAplicacion extends JFrame implements Observer {
 
     private void abrirVentanaTabla() {
         VentanaTabla vtabla = new VentanaTabla(gestor);
+    }
+
+    private void visualizarSismos() {
+        if (itemVisualizar.isSelected()) {
+            gestor.dibujarSismos();
+        } else {
+            panelCentral.borrarSismos();
+        }
+    }
+
+    private void dibujarSismos(List<Sismo> lista) {        
+        panelCentral.dibujarSismos(lista);
     }
 }
