@@ -84,7 +84,6 @@ public class VentanaAplicacion extends JFrame implements Observer {
             dibujarLineasMouse(((MouseEvent) arg));
         }
         if (arg instanceof List) {
-            System.out.println("instancia de lista encontrada");
             dibujarSismos((List<Sismo>) arg);
         }
 

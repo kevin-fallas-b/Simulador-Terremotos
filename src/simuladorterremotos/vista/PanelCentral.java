@@ -9,14 +9,13 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +29,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
+import simuladorterremotos.clases.Coordenada;
 import simuladorterremotos.clases.Sismo;
 import simuladorterremotos.control.ControlSimulador;
 import simuladorterremotos.util.ConversorGrados;
@@ -99,7 +99,6 @@ public class PanelCentral extends JPanel {
     }
 
     public void dibujarSismos(List<Sismo> lista) {
-        System.out.println("panel central le llego lista tamano " + lista.size());
         sismos = lista;
         repaint();
     }
@@ -113,12 +112,22 @@ public class PanelCentral extends JPanel {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
         Stroke basico = g2d.getStroke();
-        //dibujar Guias
+        //dibujar texto de guias
+        g2d.setFont(new Font("TimesRoman", Font.PLAIN, 14)); 
+        List<Coordenada> coordenadasGuias = XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas();
+        g2d.drawString(coordenadasGuias.get(0).getPosMapa().getLongitud().toString(), fondo.getX() + coordenadasGuias.get(0).getPosImagen().getX() + 10 + panel.getX(), fondo.getY() + coordenadasGuias.get(0).getPosImagen().getY() - 25 + panel.getY());
+        g2d.drawString(coordenadasGuias.get(0).getPosMapa().getLatitud().toString(), fondo.getX() + coordenadasGuias.get(0).getPosImagen().getX() + 10 + panel.getX(), fondo.getY() + coordenadasGuias.get(0).getPosImagen().getY() - 10 + panel.getY());
+
+        g2d.drawString(coordenadasGuias.get(1).getPosMapa().getLongitud().toString(), fondo.getX() + coordenadasGuias.get(1).getPosImagen().getX() + 10 + panel.getX(), fondo.getY() + coordenadasGuias.get(1).getPosImagen().getY() - 25 + panel.getY());
+        g2d.drawString(coordenadasGuias.get(1).getPosMapa().getLatitud().toString(), fondo.getX() + coordenadasGuias.get(1).getPosImagen().getX() + 10 + panel.getX(), fondo.getY() + coordenadasGuias.get(1).getPosImagen().getY()-10 + panel.getY());
+
+        //dibujar guias
         g2d.drawLine(fondo.getX() + XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(0).getPosImagen().getX() + panel.getX(), 0, fondo.getX() + XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(0).getPosImagen().getX() + panel.getX(), mapaCr.getHeight()); // guia vertical izquierda
         g2d.drawLine(fondo.getX(), XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(0).getPosImagen().getY() + panel.getY(), fondo.getX() + fondo.getWidth(), XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(0).getPosImagen().getY() + panel.getY()); // guia Horizontal arriba
 
         g2d.drawLine(fondo.getX() + XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(1).getPosImagen().getX() + panel.getX(), 0, fondo.getX() + XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(1).getPosImagen().getX() + panel.getX(), mapaCr.getHeight()); // guia vertical derecha
         g2d.drawLine(fondo.getX(), XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(1).getPosImagen().getY() + panel.getY(), fondo.getX() + fondo.getWidth(), XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(1).getPosImagen().getY() + panel.getY()); // guia horizontal abajo
+
         //dibujar lineas que siguen al mouse
         g2d.setColor(Color.MAGENTA);
         Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
@@ -134,16 +143,16 @@ public class PanelCentral extends JPanel {
             //se suman fondo y panel para que sea redimensionable y no se joda cuando se hace scroll
             Integer xSismo = fondo.getX() + ConversorGrados.convertirLongitud_Pixeles(sismos.get(i).getLongitud()) + panel.getX();
             Integer ySismo = fondo.getY() + ConversorGrados.convertirLatitud_Pixeles(sismos.get(i).getLatitud()) + panel.getY();
-            
+
             g2d.setColor(colores[c]);
             c++;
             if (c % colores.length == 0) {
                 c = 0;
             }
             g2d.fillOval(xSismo, ySismo, 45, 45);
-            
+
             g2d.setColor(new Color(0f, 0f, 0f, 1f));
-            g2d.drawString(String.valueOf(sismos.get(i).getMagnitud()), xSismo+15, ySismo+25);
+            g2d.drawString(String.valueOf(sismos.get(i).getMagnitud()), xSismo + 15, ySismo + 25);
         }
     }
 

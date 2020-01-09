@@ -216,11 +216,11 @@ public class ModeloSimulador extends Observable {
         setSismosFiltrados();
         setChanged();
         notifyObservers(sismosFiltrados);
-        System.out.println("modelo aviso que hay que pintar");
     }
 
     public void setSismosFiltrados() {
         sismosFiltrados = sismos;
+
         System.out.println("se setiaron sismos filtrados" +sismos.size() + "filtrados "+sismosFiltrados.size());
         for (int i = 0; i < sismos.size(); i++) {
             if (fechaInicio != null && fechaFinal != null) {
@@ -229,5 +229,14 @@ public class ModeloSimulador extends Observable {
                 }
             }
         }
+
+//        for (int i = 0; i < sismos.size(); i++) {
+//            if (fechaInicio != null && fechaFinal != null) {
+//                if (sismos.get(i).getFecha().isBefore(fechaFinal) && sismos.get(i).getFecha().isAfter(fechaInicio) && sismos.get(i).getMagnitud() > magnitudInicio && sismos.get(i).getMagnitud() < magnitudFinal) {
+//                    sismosFiltrados.add(sismos.get(i));
+//                }
+//            }
+//        }
+
     }
 }
