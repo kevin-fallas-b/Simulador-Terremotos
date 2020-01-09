@@ -48,7 +48,6 @@ public class PanelCentral extends JPanel {
     private Integer x = 0;
     private Integer y = 0;
     private List<Sismo> sismos;
-    //private Color[] colores = {new Color(254,0,0), new Color(180,189,0),new Color(0,254,0),new Color(0,254,187), new Color(0,254,254)};
     private Color[] colores = {new Color(0.5f, 0.6f, 0.4f, 0.5f), new Color(1f, 0f, 0f, 0.5f), new Color(0f, 1f, 0.4f, 0.5f), new Color(0f, 1f, 1f, 0.5f), new Color(0.65f, 0.25f, 0.42f, 0.5f)};
 
     public PanelCentral(ControlSimulador gestor) {
@@ -113,13 +112,13 @@ public class PanelCentral extends JPanel {
         Graphics2D g2d = (Graphics2D) g.create();
         Stroke basico = g2d.getStroke();
         //dibujar texto de guias
-        g2d.setFont(new Font("TimesRoman", Font.PLAIN, 14)); 
+        g2d.setFont(new Font("TimesRoman", Font.PLAIN, 14));
         List<Coordenada> coordenadasGuias = XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas();
         g2d.drawString(coordenadasGuias.get(0).getPosMapa().getLongitud().toString(), fondo.getX() + coordenadasGuias.get(0).getPosImagen().getX() + 10 + panel.getX(), fondo.getY() + coordenadasGuias.get(0).getPosImagen().getY() - 25 + panel.getY());
         g2d.drawString(coordenadasGuias.get(0).getPosMapa().getLatitud().toString(), fondo.getX() + coordenadasGuias.get(0).getPosImagen().getX() + 10 + panel.getX(), fondo.getY() + coordenadasGuias.get(0).getPosImagen().getY() - 10 + panel.getY());
 
         g2d.drawString(coordenadasGuias.get(1).getPosMapa().getLongitud().toString(), fondo.getX() + coordenadasGuias.get(1).getPosImagen().getX() + 10 + panel.getX(), fondo.getY() + coordenadasGuias.get(1).getPosImagen().getY() - 25 + panel.getY());
-        g2d.drawString(coordenadasGuias.get(1).getPosMapa().getLatitud().toString(), fondo.getX() + coordenadasGuias.get(1).getPosImagen().getX() + 10 + panel.getX(), fondo.getY() + coordenadasGuias.get(1).getPosImagen().getY()-10 + panel.getY());
+        g2d.drawString(coordenadasGuias.get(1).getPosMapa().getLatitud().toString(), fondo.getX() + coordenadasGuias.get(1).getPosImagen().getX() + 10 + panel.getX(), fondo.getY() + coordenadasGuias.get(1).getPosImagen().getY() - 10 + panel.getY());
 
         //dibujar guias
         g2d.drawLine(fondo.getX() + XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(0).getPosImagen().getX() + panel.getX(), 0, fondo.getX() + XmlUtil.getInstance().getMapa().getCoordinates().getCoordenadas().get(0).getPosImagen().getX() + panel.getX(), mapaCr.getHeight()); // guia vertical izquierda
@@ -137,6 +136,7 @@ public class PanelCentral extends JPanel {
 
         //alistar para pintar sismos
         g2d.setStroke(basico);
+        
         //si existen sismos, pintarlos
         int c = 0;
         for (int i = 0; i < sismos.size(); i++) {
@@ -154,6 +154,7 @@ public class PanelCentral extends JPanel {
             g2d.setColor(new Color(0f, 0f, 0f, 1f));
             g2d.drawString(String.valueOf(sismos.get(i).getMagnitud()), xSismo + 15, ySismo + 25);
         }
+
     }
 
 }

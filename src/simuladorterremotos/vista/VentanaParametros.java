@@ -5,17 +5,40 @@
  */
 package simuladorterremotos.vista;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.time.LocalDate;
-import javafx.scene.control.DatePicker;
-import javafx.util.converter.LocalDateStringConverter;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import simuladorterremotos.control.ControlSimulador;
 
-public class VentanaParametros extends javax.swing.JFrame {
+public class VentanaParametros extends javax.swing.JFrame implements Observer {
 
-  
-    public VentanaParametros() {  
-        setLocationRelativeTo(null);
+    public VentanaParametros(ControlSimulador gestor) {
+
         initComponents();
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                cerrarVentana();
+            }
+
+        });
+        this.gestor = gestor;
+        setLocationRelativeTo(null);
+        try {
+            setIconImage(ImageIO.read(VentanaParametros.class.getResourceAsStream("../resource/icon.png")));
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaParametros.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -165,78 +188,49 @@ public class VentanaParametros extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         LocalDate fechaInicio, fechaFinal;
         double magnitudInicio, magnitudFinal;
+        DateTimeFormatter formatoTico = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+       
         
-        if("".equals(txtFechaInicial.getText())){
+        if ("".equals(txtFechaInicial.getText())) {
             gestor.setFechaInicio(null);
-        }else{
-            gestor.setFechaInicio(LocalDate.parse(txtFechaInicial.getText()));
+        } else {
+            gestor.setFechaInicio(LocalDate.parse(txtFechaInicial.getText(),formatoTico));
         }
-        
-        if("".equals(txtFechaFinal.getText())){
+
+        if ("".equals(txtFechaFinal.getText())) {
             gestor.setFechaFinal(null);
-        }else{
-            gestor.setFechaFinal(LocalDate.parse(txtFechaFinal.getText()));
+        } else {
+            gestor.setFechaFinal(LocalDate.parse(txtFechaFinal.getText(),formatoTico));
         }
-        
-        if("".equals(txtMagnitudInicial.getText())){
+
+        if ("".equals(txtMagnitudInicial.getText())) {
             gestor.setMagnitudInicio(0);
-        }else{
+        } else {
             gestor.setMagnitudInicio(Double.parseDouble(txtMagnitudInicial.getText()));
         }
-        
-        if("".equals(txtMagnitudFinal.getText())){
-            gestor.setMagnitudFinal(0);
-        }else{
+
+        if ("".equals(txtMagnitudFinal.getText())) {
+            gestor.setMagnitudFinal(-1);
+        } else {
             gestor.setMagnitudFinal(Double.parseDouble(txtMagnitudFinal.getText()));
         }
-        
+
         gestor.FiltrarSismos();
-        
+
         this.setVisible(false);
     }//GEN-LAST:event_btnAceptarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaParametros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaParametros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaParametros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaParametros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaParametros().setVisible(true);
-            }
-        });
-    }
-    
-    public void setGestor(ControlSimulador gestor){
-        this.gestor = gestor;
-        this.setVisible(true);
+    public void init() {
+        gestor.registrar(this);
+        setVisible(true);
     }
 
+    private void cerrarVentana() {
+        gestor.suprimir(this);
+        dispose();
+    }
     private ControlSimulador gestor;
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JLabel jLabel1;
@@ -250,4 +244,8 @@ public class VentanaParametros extends javax.swing.JFrame {
     private javax.swing.JTextField txtMagnitudFinal;
     private javax.swing.JTextField txtMagnitudInicial;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+    }
 }

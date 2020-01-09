@@ -53,24 +53,21 @@ public class ControlSimulador {
         return modelo.getNombreArchivoDatos();
     }
 
-    public List<Sismo> getSismos(){
-        return modelo.getSismos();
+  
+    public void getSismosFiltrados(){
+        modelo.setSismosFiltrados();
     }
-    
     public void FiltrarSismos(){
         modelo.setSismosFiltrados();
     }
     
-    public void LeerTxt(){
-        modelo.LeerTxt();
-    }
+    
 
     public void dibujarSismos() {
         modelo.dibujarSismos();
     }
 
-    public void borrarSismos() {
-    }
+    
     
     public void setFechaInicio(LocalDate fecha){
         modelo.setFechaInicio(fecha);

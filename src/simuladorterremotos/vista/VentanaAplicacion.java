@@ -145,12 +145,12 @@ public class VentanaAplicacion extends JFrame implements Observer {
     }
 
     private void abrirVentanaLimites() {
-        VentanaParametros ventana = new VentanaParametros();
-        ventana.setGestor(gestor);
+        new VentanaParametros(gestor).init();
+       
     }
 
     private void abrirVentanaTabla() {
-        VentanaTabla vtabla = new VentanaTabla(gestor);
+        new VentanaTabla(gestor).init();
     }
 
     private void visualizarSismos() {
@@ -162,6 +162,8 @@ public class VentanaAplicacion extends JFrame implements Observer {
     }
 
     private void dibujarSismos(List<Sismo> lista) {        
-        panelCentral.dibujarSismos(lista);
+        if(itemVisualizar.isSelected()){
+            panelCentral.dibujarSismos(lista);
+        }
     }
 }
