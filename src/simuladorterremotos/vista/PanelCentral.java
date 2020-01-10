@@ -31,6 +31,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import simuladorterremotos.clases.Coordenada;
 import simuladorterremotos.clases.Sismo;
+import simuladorterremotos.configuracion.Configuracion;
 import simuladorterremotos.control.ControlSimulador;
 import simuladorterremotos.util.ConversorGrados;
 import simuladorterremotos.util.XmlUtil;
@@ -48,12 +49,15 @@ public class PanelCentral extends JPanel {
     private Integer x = 0;
     private Integer y = 0;
     private List<Sismo> sismos;
-    private Color[] colores = {new Color(0.5f, 0.6f, 0.4f, 0.5f), new Color(1f, 0f, 0f, 0.5f), new Color(0f, 1f, 0.4f, 0.5f), new Color(0f, 1f, 1f, 0.5f), new Color(0.65f, 0.25f, 0.42f, 0.5f)};
-
+    private final Integer tamanoCirculo;
+    private final Color[] colores;
+         
     public PanelCentral(ControlSimulador gestor) {
         super();
         this.gestor = gestor;
         this.sismos = new ArrayList();
+        this.tamanoCirculo = Configuracion.obtenerInstancia().getTamanoSismo();
+        this.colores = Configuracion.obtenerInstancia().getColores();
         configurar();
     }
 
@@ -144,17 +148,21 @@ public class PanelCentral extends JPanel {
             Integer xSismo = fondo.getX() + ConversorGrados.convertirLongitud_Pixeles(sismos.get(i).getLongitud()) + panel.getX();
             Integer ySismo = fondo.getY() + ConversorGrados.convertirLatitud_Pixeles(sismos.get(i).getLatitud()) + panel.getY();
 
-            g2d.setColor(colores[c]);
+            g2d.setColor(getColorSegunMagnitud(sismos.get(i)));
             c++;
             if (c % colores.length == 0) {
                 c = 0;
             }
-            g2d.fillOval(xSismo, ySismo, 45, 45);
+            g2d.fillOval(xSismo, ySismo, tamanoCirculo, tamanoCirculo);
 
             g2d.setColor(new Color(0f, 0f, 0f, 1f));
-            g2d.drawString(String.valueOf(sismos.get(i).getMagnitud()), xSismo + 15, ySismo + 25);
+            g2d.drawString(String.valueOf(sismos.get(i).getMagnitud()), xSismo + (tamanoCirculo/3), ySismo + (tamanoCirculo/2));
         }
 
     }
-
+    
+    private Color getColorSegunMagnitud(Sismo sismo){
+       Double magnitud = sismo.getMagnitud();
+       return colores[(magnitud.intValue()/2)-1];
+    }
 }
