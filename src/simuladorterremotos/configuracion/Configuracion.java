@@ -20,11 +20,9 @@ public class Configuracion extends Properties {
         if (instancia == null) {
             instancia = new Configuracion();
             try {
-                System.out.println("Cargando configuración por defecto..");
                 instancia.load(Configuracion.class.getResourceAsStream(ARCHIVO_CONFIGURACION));
 
                 rutaConfiguracion = PathUtils.getUserPath(instancia.getProperty("archivo_configuracion"));
-                System.out.printf("Cargando configuración del usuario: '%s'..%n", rutaConfiguracion);
                 instancia.load(new FileInputStream(rutaConfiguracion));
 
             } catch (IOException ex) {
@@ -42,7 +40,6 @@ public class Configuracion extends Properties {
     public void guardarConfiguracion() {
         if (rutaConfiguracion != null) {
             try {
-                System.out.println("Actualizando archivo de configuración..");
                 store(new FileOutputStream(rutaConfiguracion), getClass().getCanonicalName());
             } catch (IOException ex) {
                 System.err.printf("No se pudo actualizar el archivo de configuración: '%s'..%n", ARCHIVO_CONFIGURACION);
@@ -60,7 +57,7 @@ public class Configuracion extends Properties {
     public Color[] getColores() {
         String coloresSinFiltrar = getProperty("coloresSismos");
         String[] codigos = coloresSinFiltrar.split("[$]");
-        Color[] colores = new Color[5] ;
+        Color[] colores = new Color[10];
         for (int i = 0; i < codigos.length; i++) {
             String codigosIndividuales[] = codigos[i].split(",");
             colores[i] = new Color(Float.valueOf(codigosIndividuales[0]), Float.valueOf(codigosIndividuales[1]), Float.valueOf(codigosIndividuales[2]), Float.valueOf(codigosIndividuales[3]));

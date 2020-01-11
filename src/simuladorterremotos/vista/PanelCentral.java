@@ -33,7 +33,7 @@ import simuladorterremotos.clases.Coordenada;
 import simuladorterremotos.clases.Sismo;
 import simuladorterremotos.configuracion.Configuracion;
 import simuladorterremotos.control.ControlSimulador;
-import simuladorterremotos.util.ConversorGrados;
+import simuladorterremotos.util.ConversionUtil;
 import simuladorterremotos.util.XmlUtil;
 
 /**
@@ -145,8 +145,8 @@ public class PanelCentral extends JPanel {
         int c = 0;
         for (int i = 0; i < sismos.size(); i++) {
             //se suman fondo y panel para que sea redimensionable y no se joda cuando se hace scroll
-            Integer xSismo = fondo.getX() + ConversorGrados.convertirLongitud_Pixeles(sismos.get(i).getLongitud()) + panel.getX();
-            Integer ySismo = fondo.getY() + ConversorGrados.convertirLatitud_Pixeles(sismos.get(i).getLatitud()) + panel.getY();
+            Integer xSismo = fondo.getX() + ConversionUtil.longitudAPixeles(sismos.get(i).getLongitud()) + panel.getX();
+            Integer ySismo = fondo.getY() + ConversionUtil.latitudAPixeles(sismos.get(i).getLatitud()) + panel.getY();
 
             g2d.setColor(getColorSegunMagnitud(sismos.get(i)));
             c++;
@@ -163,6 +163,6 @@ public class PanelCentral extends JPanel {
     
     private Color getColorSegunMagnitud(Sismo sismo){
        Double magnitud = sismo.getMagnitud();
-       return colores[(magnitud.intValue()/2)-1];
+       return colores[(magnitud.intValue()/2)];
     }
 }

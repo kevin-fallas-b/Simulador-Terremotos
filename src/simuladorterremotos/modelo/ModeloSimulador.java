@@ -227,7 +227,7 @@ public class ModeloSimulador extends Observable {
         List<Sismo> filtradoMagnitud = new ArrayList<>();
         for (int i = 0; i < sismos.size(); i++) {
             if (magnitudFinal != -1) {
-                if (sismos.get(i).getMagnitud() > magnitudInicio && sismos.get(i).getMagnitud() < magnitudFinal) {
+                if (sismos.get(i).getMagnitud() >= magnitudInicio && sismos.get(i).getMagnitud() <= magnitudFinal) {
                     filtradoMagnitud.add(sismos.get(i));
                 }
             } else {
